@@ -4,6 +4,7 @@ import BottomNav from "../components/BottomNav";
 import NavDrawer from "../components/NavDrawer";
 import type { SessionStats } from "../lib/gameTypes";
 import { formatDuration } from "../lib/gameTypes";
+import AdSlot from "../components/AdSlot";
 
 const navItems = [
   { icon: "home", label: "Início", href: "/inicio" },
@@ -177,6 +178,9 @@ export default function Resultados() {
             IR PARA O INÍCIO
             <span className="material-symbols-outlined">home</span>
           </button>
+        </div>
+        <div className="w-full max-w-lg mt-12">
+          <AdSlot slotId="resultados-fim-sessao" />
         </div>
       </main>
 

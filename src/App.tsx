@@ -11,6 +11,8 @@ import Dashboard from "./admin/Dashboard";
 import QuestionsList from "./admin/QuestionsList";
 import QuestionForm from "./admin/QuestionForm";
 import BulkImport from "./admin/BulkImport";
+import PoliticaPrivacidade from "./screens/PoliticaPrivacidade";
+import TermosDeUso from "./screens/TermosDeUso";
 
 function App() {
   return (
@@ -92,6 +94,8 @@ function App() {
           />
         }
       />
+      <Route path="/privacidade" element={<PoliticaPrivacidade />} />
+<Route path="/termos" element={<TermosDeUso />} />
     </Routes>
   );
 }

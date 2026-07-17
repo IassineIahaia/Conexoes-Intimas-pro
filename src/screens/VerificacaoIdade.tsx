@@ -27,7 +27,9 @@ export default function VerificacaoIdade() {
       {/* Background Orbs */}
       <div
         className="orb w-[500px] h-[500px] bg-primary-container -top-40 -left-20"
-        style={{ transform: `translate(${orbOffset.x * 20}px, ${orbOffset.y * 20}px)` }}
+        style={{
+          transform: `translate(${orbOffset.x * 20}px, ${orbOffset.y * 20}px)`,
+        }}
       />
       <div
         className="orb w-[400px] h-[400px] bg-on-tertiary-fixed-variant -bottom-20 -right-20"
@@ -58,7 +60,8 @@ export default function VerificacaoIdade() {
             Espaço Reservado
           </h2>
           <p className="font-body-lg text-body-lg text-on-surface-variant mb-10 leading-relaxed">
-            Este ambiente foi desenhado para experiências sensoriais e diálogos adultos.
+            Este ambiente foi desenhado para experiências sensoriais e diálogos
+            adultos.
             <br className="hidden md:block" />
             Sua privacidade é nosso compromisso.
           </p>
@@ -80,7 +83,9 @@ export default function VerificacaoIdade() {
 
         <div className="mt-12 flex items-center gap-4 text-on-surface-variant/40">
           <span className="h-px w-8 bg-current" />
-          <span className="font-label-caps text-[10px]">EDITORIAL EXPERIENCE v1.0</span>
+          <span className="font-label-caps text-[10px]">
+            EDITORIAL EXPERIENCE v1.0
+          </span>
           <span className="h-px w-8 bg-current" />
         </div>
       </main>
@@ -90,7 +95,15 @@ export default function VerificacaoIdade() {
         style={leaving ? { opacity: 0 } : undefined}
       >
         <p className="font-label-caps text-[10px] text-on-surface-variant/40 max-w-md mx-auto leading-loose">
-          Ao entrar, você concorda com nossos Termos de Uso e Política de Privacidade.
+          Ao entrar, você concorda com nossos{" "}
+          <a href="/termos" className="underline hover:text-primary">
+            Termos de Uso
+          </a>{" "}
+          e{" "}
+          <a href="/privacidade" className="underline hover:text-primary">
+            Política de Privacidade
+          </a>
+          .
           <br />
           Acesso proibido para menores de 18 anos sob qualquer circunstância.
         </p>
