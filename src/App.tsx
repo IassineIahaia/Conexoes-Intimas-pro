@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import PaginaInicial from "./screens/PaginaInicial";
 import VerificacaoIdade from "./screens/VerificacaoIdade";
 import ConfiguracaoJogo from "./screens/ConfiguracaoJogo";
+import ComingSoon from "./screens/ComingSoon";
 import TelaDeJogo from "./screens/TelaDeJogo";
 import Resultados from "./screens/Resultados";
 import AdminLogin from "./admin/AdminLogin";
@@ -10,7 +11,6 @@ import Dashboard from "./admin/Dashboard";
 import QuestionsList from "./admin/QuestionsList";
 import QuestionForm from "./admin/QuestionForm";
 import BulkImport from "./admin/BulkImport";
-
 
 function App() {
   return (
@@ -55,13 +55,43 @@ function App() {
         }
       />
       <Route
-  path="/admin/importar"
-  element={
-    <ProtectedRoute>
-      <BulkImport />
-    </ProtectedRoute>
-  }
-/>
+        path="/admin/importar"
+        element={
+          <ProtectedRoute>
+            <BulkImport />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/explorar"
+        element={
+          <ComingSoon
+            title="Explorar"
+            icon="explore"
+            description="Uma biblioteca navegável de perguntas e desafios está a caminho."
+          />
+        }
+      />
+      <Route
+        path="/favoritos"
+        element={
+          <ComingSoon
+            title="Favoritos"
+            icon="favorite"
+            description="Em breve poderás guardar as cartas que mais gostaste para reviver depois."
+          />
+        }
+      />
+      <Route
+        path="/configuracoes"
+        element={
+          <ComingSoon
+            title="Configurações"
+            icon="settings"
+            description="Preferências de conta, som e privacidade chegam em breve."
+          />
+        }
+      />
     </Routes>
   );
 }

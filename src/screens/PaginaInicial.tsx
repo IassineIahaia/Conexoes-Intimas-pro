@@ -3,6 +3,7 @@ import TopAppBar from "../components/TopAppBar";
 import BottomNav from "../components/BottomNav";
 import NavDrawer from "../components/NavDrawer";
 import FeatureCard from "../components/FeatureCard";
+import InstallPrompt from "../components/InstallPrompt";
 
 const navItems = [
   { icon: "home", label: "Início", href: "/inicio" },
@@ -22,6 +23,7 @@ export default function PaginaInicial() {
           <div className="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/30 bg-primary-container" />
         }
       />
+      <InstallPrompt />
       <NavDrawer
         brandTitle="Conexões Íntimas"
         brandSubtitle="Membro Premium"
