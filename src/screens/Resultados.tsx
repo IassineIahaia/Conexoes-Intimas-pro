@@ -25,6 +25,25 @@ export default function Resultados() {
   const location = useLocation();
   const stats = (location.state as SessionStats | undefined) ?? fallbackStats;
 
+  async function handleShare() {
+    const shareData = {
+      title: "Conexões Íntimas",
+      text: `Acabei de jogar ${stats.cardsPlayed} cartas no Conexões Íntimas! Uma experiência incrível para casais. 💕`,
+      url: "https://conexoes-intimas-pro.vercel.app/",
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch {
+        // Utilizador cancelou a partilha — não é um erro a tratar
+      }
+    } else {
+      await navigator.clipboard.writeText(shareData.url);
+      alert("Link copiado! Cola onde quiseres partilhar.");
+    }
+  }
+
   return (
     <div className="min-h-screen flex flex-col items-center bg-background">
       <TopAppBar
@@ -49,52 +68,38 @@ export default function Resultados() {
             Uma Jornada de Descobertas
           </h2>
           <p className="font-body-lg text-body-lg text-on-surface-variant/80">
-            O tempo compartilhado é a semente de uma conexão mais profunda.
-            Guarde estas memórias com carinho.
+            O tempo compartilhado é a semente de uma conexão mais profunda. Guarde estas memórias
+            com carinho.
           </p>
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 w-full">
           <div className="md:col-span-4 glass-card p-8 rounded-3xl flex flex-col justify-between items-start group hover:border-primary/40 transition-all duration-500">
             <div className="mb-8">
-              <span className="material-symbols-outlined text-primary text-4xl mb-4">
-                style
-              </span>
-              <p className="font-label-caps text-label-caps text-on-surface-variant">
-                CARTAS JOGADAS
-              </p>
+              <span className="material-symbols-outlined text-primary text-4xl mb-4">style</span>
+              <p className="font-label-caps text-label-caps text-on-surface-variant">CARTAS JOGADAS</p>
             </div>
             <div className="flex items-baseline gap-2">
               <span className="font-headline-md text-6xl text-primary font-bold">
                 {stats.cardsPlayed}
               </span>
-              <span className="font-body-md text-on-surface-variant/60">
-                desafios
-              </span>
+              <span className="font-body-md text-on-surface-variant/60">desafios</span>
             </div>
           </div>
 
           <div className="md:col-span-8 glass-card p-8 rounded-3xl flex flex-col justify-between group hover:border-primary/40 transition-all duration-500 overflow-hidden relative">
             <div className="z-10">
-              <span className="material-symbols-outlined text-primary text-4xl mb-4">
-                schedule
-              </span>
-              <p className="font-label-caps text-label-caps text-on-surface-variant">
-                DURAÇÃO DA SESSÃO
-              </p>
+              <span className="material-symbols-outlined text-primary text-4xl mb-4">schedule</span>
+              <p className="font-label-caps text-label-caps text-on-surface-variant">DURAÇÃO DA SESSÃO</p>
             </div>
             <div className="z-10 mt-8">
               <span className="font-headline-md text-6xl text-primary font-bold">
                 {formatDuration(stats.durationSeconds)}
               </span>
-              <span className="font-body-md text-on-surface-variant/60 ml-2">
-                de intimidade
-              </span>
+              <span className="font-body-md text-on-surface-variant/60 ml-2">de intimidade</span>
             </div>
             <div className="absolute -right-10 -bottom-10 opacity-10 group-hover:opacity-20 transition-opacity">
-              <span className="material-symbols-outlined text-[12rem] text-primary">
-                auto_awesome
-              </span>
+              <span className="material-symbols-outlined text-[12rem] text-primary">auto_awesome</span>
             </div>
           </div>
 
@@ -135,23 +140,19 @@ export default function Resultados() {
                   {stats.highlightPlayer}
                 </h3>
                 <p className="font-body-md text-on-surface-variant/60">
-                  Liderou com {stats.highlightCount} carta
-                  {stats.highlightCount === 1 ? "" : "s"} "Quentes"
+                  Liderou com {stats.highlightCount} carta{stats.highlightCount === 1 ? "" : "s"}{" "}
+                  "Quentes"
                 </p>
               </div>
             </div>
           </div>
 
           <div className="md:col-span-5 glass-card p-8 rounded-3xl flex flex-col items-center justify-center text-center group hover:bg-white/5 transition-all duration-500 cursor-pointer">
-            <button className="flex flex-col items-center" type="button">
+            <button className="flex flex-col items-center" type="button" onClick={handleShare}>
               <div className="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <span className="material-symbols-outlined text-primary text-3xl">
-                  share
-                </span>
+                <span className="material-symbols-outlined text-primary text-3xl">share</span>
               </div>
-              <h4 className="font-headline-sm text-headline-sm mb-2 text-on-surface">
-                Compartilhar
-              </h4>
+              <h4 className="font-headline-sm text-headline-sm mb-2 text-on-surface">Compartilhar</h4>
               <p className="font-body-md text-on-surface-variant/60 px-4">
                 Espalhe a essência dessa conexão com quem você ama.
               </p>
@@ -179,6 +180,7 @@ export default function Resultados() {
             <span className="material-symbols-outlined">home</span>
           </button>
         </div>
+
         <div className="w-full max-w-lg mt-12">
           <AdSlot slotId="resultados-fim-sessao" />
         </div>

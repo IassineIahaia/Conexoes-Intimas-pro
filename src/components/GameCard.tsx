@@ -1,12 +1,23 @@
+import { useState } from "react";
+
 interface GameCardProps {
   playerName: string;
   mode: "Verdade" | "Desafio";
   prompt: string;
   intensity: string;
+  blurred?: boolean;
 }
 
-export default function GameCard({ playerName, mode, prompt, intensity }: GameCardProps) {
+export default function GameCard({
+  playerName,
+  mode,
+  prompt,
+  intensity,
+  blurred = false,
+}: GameCardProps) {
+  const [revealed, setRevealed] = useState(false);
   const icon = mode === "Verdade" ? "favorite" : "bolt";
+  const isHidden = blurred && !revealed;
 
   return (
     <div className="relative w-full max-w-lg aspect-[3/4] md:aspect-[4/5] card-enter">
@@ -33,10 +44,31 @@ export default function GameCard({ playerName, mode, prompt, intensity }: GameCa
             </div>
           </div>
 
-          <div className="my-auto px-4">
-            <p className="font-headline-md text-headline-md md:text-[36px] leading-snug text-on-surface italic">
+          <div className="my-auto px-4 relative w-full">
+            <p
+              className={`font-headline-md text-headline-md md:text-[36px] leading-snug text-on-surface italic transition-all duration-300 ${
+                isHidden ? "blur-lg select-none" : ""
+              }`}
+            >
               "{prompt}"
             </p>
+
+            {isHidden && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setRevealed(true);
+                }}
+                className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-on-surface-variant"
+              >
+                <span className="material-symbols-outlined text-3xl text-primary">
+                  visibility_off
+                </span>
+                <span className="font-label-caps text-[11px] tracking-widest uppercase">
+                  Toque para revelar
+                </span>
+              </button>
+            )}
           </div>
 
           <div className="mt-auto pt-8">
