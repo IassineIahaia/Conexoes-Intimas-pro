@@ -27,6 +27,8 @@ export interface SessionStats {
   durationSeconds: number;
   highlightPlayer: string;
   highlightCount: number;
+  verdades?: number;
+  desafios?: number;
 }
 
 export function formatDuration(totalSeconds: number): string {

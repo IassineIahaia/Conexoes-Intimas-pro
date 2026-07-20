@@ -24,6 +24,8 @@ export default function Resultados() {
   const navigate = useNavigate();
   const location = useLocation();
   const stats = (location.state as SessionStats | undefined) ?? fallbackStats;
+  const hasCategoryBreakdown =
+    typeof stats.verdades === "number" && typeof stats.desafios === "number";
 
   async function handleShare() {
     const shareData = {
@@ -85,6 +87,11 @@ export default function Resultados() {
               </span>
               <span className="font-body-md text-on-surface-variant/60">desafios</span>
             </div>
+            {hasCategoryBreakdown && (
+              <p className="text-xs text-on-surface-variant/50 mt-3">
+                {stats.verdades} Verdades · {stats.desafios} Desafios
+              </p>
+            )}
           </div>
 
           <div className="md:col-span-8 glass-card p-8 rounded-3xl flex flex-col justify-between group hover:border-primary/40 transition-all duration-500 overflow-hidden relative">

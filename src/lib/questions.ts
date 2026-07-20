@@ -76,13 +76,34 @@ export async function incrementDrawnCount(id: string): Promise<void> {
   });
 }
 
-export async function fetchQuestionsForSession(
+export interface SessionDeck {
+  truth: Question[];
+  dare: Question[];
+}
+
+/**
+ * Busca as perguntas ativas que correspondem exatamente ao modo e à
+ * intensidade escolhidos no setup (filtro EXATO, não cumulativo — escolher
+ * "provocante" traz só perguntas provocantes, não tudo até esse nível).
+ *
+ * Devolve dois baralhos já embaralhados, separados por categoria
+ * (verdade/desafio), para o jogador poder escolher a cada rodada.
+ */
+export async function fetchSessionDeck(
   mode: QuestionMode,
-  maxIntensityRank: number
-): Promise<Question[]> {
+  intensity: QuestionIntensity
+): Promise<SessionDeck> {
   const active = await fetchActiveQuestions();
-  const rank: Record<QuestionIntensity, number> = { suave: 1, equilibrado: 2, provocante: 3 };
-  return active.filter(
-    (q) => q.modos.includes(mode) && rank[q.intensidade] <= maxIntensityRank
+  const matching = active.filter(
+    (q) => q.modos.includes(mode) && q.intensidade === intensity
   );
+
+  const truth = matching
+    .filter((q) => q.categoria === "verdade")
+    .sort(() => Math.random() - 0.5);
+  const dare = matching
+    .filter((q) => q.categoria === "desafio")
+    .sort(() => Math.random() - 0.5);
+
+  return { truth, dare };
 }
